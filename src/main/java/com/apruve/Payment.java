@@ -9,7 +9,25 @@ public class Payment implements Serializable {
 	private static final String PAYMENTS_PATH = "/api/v3/payment_requests/%s/payments";
 	private String paymentRequestId;
 	private Integer amountCents;
+	private String id;
+	private String status;
 	
+	public String getId() {
+		return id;
+	}
+
+	protected void setId(String id) {
+		this.id = id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	protected void setStatus(String status) {
+		this.status = status;
+	}
+
 	public Payment(String paymentRequestId, Integer amountCents) {
 		this.paymentRequestId = paymentRequestId;
 		this.amountCents = amountCents;

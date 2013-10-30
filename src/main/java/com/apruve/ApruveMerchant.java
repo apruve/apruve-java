@@ -1,5 +1,11 @@
 package com.apruve;
 
+import static us.monoid.web.Resty.*;
+
+import java.io.IOException;
+
+import us.monoid.web.JSONResource;
+import us.monoid.web.Resty;
 
 /**
  * A convenient class for performing a merchant integration to the Apruve
@@ -79,8 +85,22 @@ public class ApruveMerchant extends ApruveClient {
 		return tag;
 	}
 
-	public void post(Payment payment) {
-		// TODO: implement
+	public String post(Payment payment) {
+		String paymentId = null;
+		Resty resty = new Resty();
+		try {
+			JSONResource json = resty.json(payment.getUrl(),
+					content(payment.toJson()));
+			payment.setId(json.get("id").toString());
+			payment.setStatus(json.get("status").toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return paymentId;
 	}
 
 	/**
