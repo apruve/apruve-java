@@ -19,6 +19,8 @@ public class ApruveClient {
 	protected ApruveClient(String apiKey, Environment env) {
 		if (apiKey == null)
 			throw new RuntimeException("apiKey cannot be null");
+		if (env == null)
+			throw new RuntimeException("env cannot be null");
 		this.apiKey = apiKey;
 		this.env = env;
 	}

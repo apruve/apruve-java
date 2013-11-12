@@ -1,3 +1,4 @@
+src/config.properties
 *.class
 .project
 .classpath
