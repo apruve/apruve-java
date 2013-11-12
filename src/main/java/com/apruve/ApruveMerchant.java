@@ -4,6 +4,9 @@ import static us.monoid.web.Resty.*;
 
 import java.io.IOException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import us.monoid.web.JSONResource;
 import us.monoid.web.Resty;
 
@@ -20,6 +23,7 @@ import us.monoid.web.Resty;
  * 
  */
 public class ApruveMerchant extends ApruveClient {
+	private static Log LOG = LogFactory.getLog(ApruveMerchant.class);
 	private static final String APRUVE_JS_PATH = "/js/apruve.js";
 	private static ApruveMerchant client = null;
 	private String merchantId;
@@ -59,6 +63,7 @@ public class ApruveMerchant extends ApruveClient {
 	 */
 	public static synchronized void init(String merchantId, String apiKey,
 			Environment env) {
+		LOG.info("ApruveMerchant is initializing with merchantId " + merchantId);
 		client = new ApruveMerchant(merchantId, apiKey, env);
 	}
 
