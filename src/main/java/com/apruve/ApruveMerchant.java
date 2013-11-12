@@ -1,14 +1,18 @@
 package com.apruve;
 
-import static us.monoid.web.Resty.*;
-
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+
+import net.sf.json.JSONObject;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import us.monoid.web.JSONResource;
-import us.monoid.web.Resty;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 /**
  * A convenient class for performing a merchant integration to the Apruve
@@ -65,6 +69,8 @@ public class ApruveMerchant extends ApruveClient {
 			Environment env) {
 		LOG.info("ApruveMerchant is initializing with merchantId " + merchantId);
 		client = new ApruveMerchant(merchantId, apiKey, env);
+		// also initialize ApruveClient to the same
+		ApruveClient.init(apiKey, env);
 	}
 
 	/**
@@ -90,22 +96,38 @@ public class ApruveMerchant extends ApruveClient {
 		return tag;
 	}
 
-	public String post(Payment payment) {
-		String paymentId = null;
-		Resty resty = new Resty();
+	public void post(Payment payment) {
 		try {
-			JSONResource json = resty.json(payment.getUrl(),
-					content(payment.toJson()));
-			payment.setId(json.get("id").toString());
-			payment.setStatus(json.get("status").toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			CloseableHttpClient httpclient = HttpClients.createDefault();
+			try {
+				HttpPost post = new HttpPost(payment.getUrl());
+				post.setHeader("Content-Type", "application/json");
+				post.setHeader("Apruve-Api-Key", getApiKey());
+				StringEntity body = new StringEntity("{\"amount_cents\":"
+						+ payment.getAmountCents() + "}");
+				post.setEntity(body);
+				HttpResponse response = httpclient.execute(post);
+				// TODO - Need error handling for 400 error response
+				BufferedReader rd = new BufferedReader(new InputStreamReader(
+						response.getEntity().getContent()));
+				String line = "";
+				while ((line = rd.readLine()) != null) {
+					// Parse our JSON response
+					LOG.debug("response from posting Payment: " + line);
+					JSONObject json = JSONObject.fromObject(line);
+					payment.setId((String) json.get("id"));
+					payment.setStatus((String) json.get("status"));
+				}
+
+			} catch (Exception ex) {
+				throw new RuntimeException("Unable to post Payment", ex);
+			} finally {
+				httpclient.close();
+			}
+		} catch (IOException ioex) {
+			throw new RuntimeException("Exception while closing HTTPClient",
+					ioex);
 		}
-		return paymentId;
 	}
 
 	/**

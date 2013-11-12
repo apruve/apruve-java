@@ -14,7 +14,7 @@ package com.apruve;
 public class ApruveClient {
 	private Environment env;
 	private String apiKey;
-	private static ApruveClient client = null;
+	protected static ApruveClient client = null;
 
 	protected ApruveClient(String apiKey, Environment env) {
 		if (apiKey == null)
