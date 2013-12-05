@@ -12,25 +12,38 @@ package com.apruve;
  * 
  */
 public class ApruveClient {
-	private Environment env;
+
+	private ApruveEnvironment env;
+
 	private String apiKey;
+
 	protected static ApruveClient client = null;
 
-	protected ApruveClient(String apiKey, Environment env) {
+
+	/**
+	 * @param apiKey
+	 * @param env
+	 */
+	protected ApruveClient(String apiKey, ApruveEnvironment env) {
 		if (apiKey == null)
-			throw new RuntimeException("apiKey cannot be null");
+			throw new ApruveException("apiKey cannot be null");
 		if (env == null)
-			throw new RuntimeException("env cannot be null");
+			throw new ApruveException("env cannot be null");
 		this.apiKey = apiKey;
 		this.env = env;
 	}
 
+
+	/**
+	 * @return
+	 */
 	public static ApruveClient getInstance() {
 		if (client == null)
-			throw new RuntimeException(
+			throw new ApruveException(
 					"Must first initialize with ApruveClient.init");
 		return client;
 	}
+
 
 	/**
 	 * Provides a single point of initialization for the ApruveClient library.
@@ -45,40 +58,31 @@ public class ApruveClient {
 	 *            com.apruve.ApruveClient.Environment.PROD or
 	 *            com.apruve.ApruveClient.Environment.TEST, as appropriate.
 	 */
-	public static synchronized void init(String apiKey, Environment env) {
+	public static synchronized void init(String apiKey, ApruveEnvironment env) {
 		client = new ApruveClient(apiKey, env);
 	}
 
+
+	/**
+	 * @return
+	 */
 	protected String getApiKey() {
 		return this.apiKey;
 	}
 
-	protected Environment getEnvironment() {
+
+	/**
+	 * @return
+	 */
+	protected ApruveEnvironment getEnvironment() {
 		return this.env;
 	}
+
 
 	/**
 	 * Intended for use in unit testing only.
 	 */
 	protected static void initToNull() {
 		client = null;
-	}
-
-	protected String getApruveUrl() {
-		String url;
-		switch (env) {
-		case PROD:
-			url = "https://www.apruve.com";
-			break;
-		default:
-			url = "https://test.apruve.com";
-			break;
-		}
-
-		return url;
-	}
-
-	public enum Environment {
-		PROD, TEST
 	}
 }

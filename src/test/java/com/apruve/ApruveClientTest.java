@@ -16,13 +16,13 @@ public class ApruveClientTest {
 
 	@Test
 	public void testInit() {
-		ApruveClient.init(AN_API_KEY, ApruveClient.Environment.TEST);
+		ApruveClient.init(AN_API_KEY, ApruveEnvironment.TEST);
 		assertNotNull(ApruveClient.getInstance());
 	}
 
 	@Test
 	public void testGetInstance() {
-		ApruveClient.init(AN_API_KEY, ApruveClient.Environment.TEST);
+		ApruveClient.init(AN_API_KEY, ApruveEnvironment.TEST);
 		assertEquals(AN_API_KEY, ApruveClient.getInstance().getApiKey());
 	}
 

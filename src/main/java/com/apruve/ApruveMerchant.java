@@ -27,21 +27,25 @@ import org.apache.http.impl.client.HttpClients;
  * 
  */
 public class ApruveMerchant extends ApruveClient {
+
 	private static Log LOG = LogFactory.getLog(ApruveMerchant.class);
-	private static final String APRUVE_JS_PATH = "/js/apruve.js";
+
 	private static ApruveMerchant client = null;
+
 	private String merchantId;
 
-	private ApruveMerchant(String merchantId, String apiKey, Environment env) {
+
+	private ApruveMerchant(String merchantId, String apiKey, ApruveEnvironment env) {
 		super(apiKey, env);
 		if (merchantId == null)
-			throw new RuntimeException("merchantId cannot be null");
+			throw new ApruveException("merchantId cannot be null");
 		this.merchantId = merchantId;
 	}
 
+
 	public static ApruveMerchant getInstance() {
 		if (client == null)
-			throw new RuntimeException(
+			throw new ApruveException(
 					"Must first initialize with ApruveMerchant.init");
 		return client;
 	}
@@ -66,12 +70,13 @@ public class ApruveMerchant extends ApruveClient {
 	 *            com.apruve.ApruveClient.Environment.TEST, as appropriate.
 	 */
 	public static synchronized void init(String merchantId, String apiKey,
-			Environment env) {
+			ApruveEnvironment env) {
 		LOG.info("ApruveMerchant is initializing with merchantId " + merchantId);
 		client = new ApruveMerchant(merchantId, apiKey, env);
 		// also initialize ApruveClient to the same
 		ApruveClient.init(apiKey, env);
 	}
+
 
 	/**
 	 * Override the normal ApruveClient.init method to throw an exception.
@@ -80,22 +85,23 @@ public class ApruveMerchant extends ApruveClient {
 	 * @param apiKey
 	 * @param env
 	 */
-	public static synchronized void init(String apiKey, Environment env) {
-		throw new RuntimeException(
+	public static synchronized void init(String apiKey, ApruveEnvironment env) {
+		throw new ApruveException(
 				"ApruveMerchant should be initialized with init(merchantId, apiKey, environment)");
 	}
 
+
+	/**
+	 * @return
+	 */
 	protected String getMerchantId() {
 		return this.merchantId;
 	}
 
-	public String getApruveJSTag() {
-		String url = getApruveUrl() + APRUVE_JS_PATH;
-		String tag = "<script src=\"" + url
-				+ "\" type=\"text/javascript\"></script>";
-		return tag;
-	}
 
+	/**
+	 * @param payment
+	 */
 	public void post(Payment payment) {
 		try {
 			CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -120,12 +126,12 @@ public class ApruveMerchant extends ApruveClient {
 				}
 
 			} catch (Exception ex) {
-				throw new RuntimeException("Unable to post Payment", ex);
+				throw new ApruveException("Unable to post Payment", ex);
 			} finally {
 				httpclient.close();
 			}
 		} catch (IOException ioex) {
-			throw new RuntimeException("Exception while closing HTTPClient",
+			throw new ApruveException("Exception while closing HTTPClient",
 					ioex);
 		}
 	}

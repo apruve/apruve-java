@@ -41,7 +41,7 @@ public class Payment implements Serializable {
 	
 	public String getUrl() {
 		String url = PAYMENTS_PATH.replaceAll("%s", paymentRequestId);
-		return ApruveClient.getInstance().getApruveUrl() + url;
+		return ApruveClient.getInstance().getEnvironment().getBaseUrl() + url;
 	}
 
 	public String getPaymentRequestId() {

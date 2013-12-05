@@ -19,18 +19,18 @@ public class ApruveMerchantTest {
 
 	@Test
 	public void testInit() {
-		ApruveMerchant.init(A_MERCHANT_ID, AN_API_KEY, ApruveMerchant.Environment.TEST);
+		ApruveMerchant.init(A_MERCHANT_ID, AN_API_KEY, ApruveEnvironment.TEST);
 		assertNotNull(ApruveMerchant.getInstance());
 	}
 	
 	@Test(expected=RuntimeException.class)
 	public void testInitApruveClient() {
-		ApruveMerchant.init(AN_API_KEY, ApruveMerchant.Environment.TEST);
+		ApruveMerchant.init(AN_API_KEY, ApruveEnvironment.TEST);
 	}
 
 	@Test
 	public void testGetInstance() {
-		ApruveMerchant.init(A_MERCHANT_ID, AN_API_KEY, ApruveMerchant.Environment.TEST);
+		ApruveMerchant.init(A_MERCHANT_ID, AN_API_KEY, ApruveEnvironment.TEST);
 		assertEquals(A_MERCHANT_ID, ApruveMerchant.getInstance().getMerchantId());
 		assertEquals(AN_API_KEY, ApruveMerchant.getInstance().getApiKey());
 	}
@@ -42,14 +42,14 @@ public class ApruveMerchantTest {
 	
 	@Test
 	public void testGetScriptForTest() {
-		ApruveMerchant.init(A_MERCHANT_ID, AN_API_KEY, ApruveMerchant.Environment.TEST);
-		assertEquals(SCRIPT_TAG_TEST, ApruveMerchant.getInstance().getApruveJSTag());
+		ApruveMerchant.init(A_MERCHANT_ID, AN_API_KEY, ApruveEnvironment.TEST);
+		assertEquals(SCRIPT_TAG_TEST, ApruveMerchant.getInstance().getEnvironment().getJsTag());
 	}
 	
 	@Test
 	public void testGetScriptForProd() {
-		ApruveMerchant.init(A_MERCHANT_ID, AN_API_KEY, ApruveMerchant.Environment.PROD);
-		assertEquals(SCRIPT_TAG_PROD, ApruveMerchant.getInstance().getApruveJSTag());
+		ApruveMerchant.init(A_MERCHANT_ID, AN_API_KEY, ApruveEnvironment.PROD);
+		assertEquals(SCRIPT_TAG_PROD, ApruveMerchant.getInstance().getEnvironment().getJsTag());
 	}
 	
 }
