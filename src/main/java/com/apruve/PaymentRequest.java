@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.processors.PropertyNameProcessor;
 import net.sf.json.util.PropertyFilter;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * A request to a payer for payment on behalf of a shopper. In order to provide
@@ -20,11 +21,43 @@ import net.sf.json.util.PropertyFilter;
  */
 public class PaymentRequest implements Serializable {
 	private static final long serialVersionUID = -4892365561562700036L;
+	public static final PropertyNameProcessor JSON_PROP_NAME_PROCESSOR;
+
 	private String merchantId;
 	private Integer amountCents = null;
 	private String currency = null;
-	private Boolean isRecurring = null;
+	private Integer taxCents = null;
+	private Integer shippingCents = null;
+	private Boolean recurring = null;
 	private List<LineItem> lineItems = new ArrayList<LineItem>();
+
+	static {
+		JSON_PROP_NAME_PROCESSOR = new PropertyNameProcessor() {
+			@SuppressWarnings("rawtypes")
+			@Override
+			public String processPropertyName(Class parentClass,
+					String propertyName) {
+				String jsonName = propertyName;
+				switch (propertyName) {
+				case "merchantId":
+					jsonName = "merchant_id";
+					break;
+				case "amountCents":
+					jsonName = "amount_cents";
+					break;
+				case "lineItems":
+					jsonName = "line_items";
+					break;
+				case "shippingCents":
+					jsonName = "shipping_cents";
+					break;
+				case "taxCents":
+					jsonName = "tax_cents";
+				}
+				return jsonName;
+			}
+		};
+	}
 
 	public PaymentRequest() {
 		this.merchantId = ApruveMerchant.getInstance().getMerchantId();
@@ -53,8 +86,7 @@ public class PaymentRequest implements Serializable {
 	 */
 	public String toSecureHash() {
 		String apiKey = ApruveMerchant.getInstance().getApiKey();
-		JSONObject json = toJsonObject();
-		String shaInput = apiKey + toValueString(json);
+		String shaInput = apiKey + toValueString();
 
 		return ShaUtil.getDigest(shaInput);
 	}
@@ -80,11 +112,27 @@ public class PaymentRequest implements Serializable {
 	}
 
 	public Boolean getRecurring() {
-		return isRecurring;
+		return recurring;
 	}
 
 	public void setRecurring(Boolean isRecurring) {
-		this.isRecurring = isRecurring;
+		this.recurring = isRecurring;
+	}
+
+	public Integer getTaxCents() {
+		return taxCents;
+	}
+
+	public void setTaxCents(Integer taxCents) {
+		this.taxCents = taxCents;
+	}
+
+	public Integer getShippingCents() {
+		return shippingCents;
+	}
+
+	public void setShippingCents(Integer shippingCents) {
+		this.shippingCents = shippingCents;
 	}
 
 	public List<LineItem> getLineItems() {
@@ -95,26 +143,9 @@ public class PaymentRequest implements Serializable {
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.setRootClass(PaymentRequest.class);
 		jsonConfig.registerJsonPropertyNameProcessor(PaymentRequest.class,
-				new PropertyNameProcessor() {
-					@SuppressWarnings("rawtypes")
-					@Override
-					public String processPropertyName(Class parentClass,
-							String propertyName) {
-						String jsonName = propertyName;
-						switch (propertyName) {
-						case "merchantId":
-							jsonName = "merchant_id";
-							break;
-						case "amountCents":
-							jsonName = "amount_cents";
-							break;
-						case "lineItems":
-							jsonName = "line_items";
-							break;
-						}
-						return jsonName;
-					}
-				});
+				PaymentRequest.JSON_PROP_NAME_PROCESSOR);
+		jsonConfig.registerJsonPropertyNameProcessor(LineItem.class,
+				LineItem.JSON_PROP_NAME_PROCESSOR);
 		jsonConfig.setJsonPropertyFilter(new PropertyFilter() {
 			public boolean apply(Object source, String name, Object value) {
 				if (value == null) {
@@ -126,31 +157,33 @@ public class PaymentRequest implements Serializable {
 		return JSONObject.fromObject(this, jsonConfig);
 	}
 
-	private String toValueString(JSONObject jsonObject) {
+	protected String toValueString() {
 		StringBuffer buf = new StringBuffer();
 
-		for (Object value : jsonObject.values()) {
-			if (value instanceof JSONArray) {
-				JSONArray array = (JSONArray) value;
-				buf.append(toValueString(array));
-			} else {
-				buf.append(value.toString());
-			}
+		buf.append(StringUtils.defaultString(merchantId));
+		if (amountCents != null)
+			buf.append(amountCents);
+		buf.append(StringUtils.defaultString(currency));
+		if (taxCents != null)
+			buf.append(taxCents);
+		if (shippingCents != null)
+			buf.append(shippingCents);
+		if (recurring != null)
+			buf.append(recurring);
+
+		for (LineItem line : lineItems) {
+			buf.append(line.getTitle());
+			buf.append(line.getAmountCents());
+			if (line.getPriceEachCents() != null)
+				buf.append(line.getPriceEachCents());
+			if (line.getQuantity() != null)
+				buf.append(line.getQuantity());
+			buf.append(StringUtils.defaultString(line.getDescription()));
+			buf.append(StringUtils.defaultString(line.getVariantInfo()));
+			buf.append(StringUtils.defaultString(line.getSku()));
+			buf.append(StringUtils.defaultString(line.getVendor()));
+			buf.append(StringUtils.defaultString(line.getViewProductUrl()));
 		}
 		return buf.toString();
 	}
-
-	private String toValueString(JSONArray jsonArray) {
-		StringBuffer buf = new StringBuffer();
-		for (int i = 0; i < jsonArray.size(); i++) {
-			Object item = jsonArray.get(i);
-			if (item instanceof JSONObject) {
-				buf.append(toValueString((JSONObject) item));
-			} else if (item instanceof JSONArray) {
-				buf.append(toValueString((JSONArray) item));
-			}
-		}
-		return buf.toString();
-	}
-
 }
