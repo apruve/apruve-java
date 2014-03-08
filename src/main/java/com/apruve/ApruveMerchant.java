@@ -131,7 +131,7 @@ public class ApruveMerchant extends ApruveClient {
 				httpclient.close();
 			}
 		} catch (IOException ioex) {
-			throw new ApruveException("Exception while closing HTTPClient",
+			throw new RuntimeException("Exception while closing HTTPClient",
 					ioex);
 		}
 	}
