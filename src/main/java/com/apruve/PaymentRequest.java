@@ -251,7 +251,7 @@ public class PaymentRequest implements Serializable {
 					JSONObject json = JSONObject.fromObject(line);
 					PaymentRequest paymentRequest = new PaymentRequest();
 					paymentRequest.setAmountCents(json.get("amount_cents") != null ? new Integer(json.getString("amount_cents")) : null);
-					paymentRequest.setCurrency(json.getString("currency"));
+					paymentRequest.setCurrency(json.get("currency") != null ? json.getString("currency") : null);
 					paymentRequest.setId(json.getString("id"));
 					paymentRequest.setRecurring(json.get("recurring") != null ? new Boolean(json.getString("recurring")) : null);
 					paymentRequest.setShippingCents(json.get("shipping_cents") != null ? new Integer(json.getString("shipping_cents")) : null);
