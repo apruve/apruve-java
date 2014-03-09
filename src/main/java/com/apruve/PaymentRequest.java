@@ -32,6 +32,7 @@ public class PaymentRequest implements Serializable {
 	public static final PropertyNameProcessor JSON_PROP_NAME_PROCESSOR;
 
 	private static final String PAYMENT_REQUEST_PATH = "/api/v3/payment_requests/%s";
+
 	private static final String FINALIZE_PAYMENT_REQUEST_PATH = "/api/v3/payment_requests/%s/finalize";
 
 	private String id;
