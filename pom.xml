@@ -3,8 +3,37 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>apruve</groupId>
 	<artifactId>apruve-java</artifactId>
+	<packaging>jar</packaging>
 	<version>0.3.0</version>
 	<name>Apruve Client for Java</name>
+	<description>Java client for merchant integration with Apruve</description>
+	<url>http://www.apruve.com</url>
+	<licenses>
+		<license></license>
+	</licenses>
+	<scm>
+		<url>https://github.com/apruve/apruve-java</url>
+		<connection>scm:git:git@github.com:apruve/apruve-java.git</connection>
+		<developerConnection>scm:git:git@github.com:apruve/apruve-java.git</developerConnection>
+	</scm>
+	<developers>
+		<developer>
+			<id>todd</id>
+			<name>Todd Cochran</name>
+			<email>todd@apruve.com</email>
+			<organization>Apruve</organization>
+			<organizationUrl>http://www.apruve.com</organizationUrl>
+			<timezone>America/Chicago</timezone>
+		</developer>
+		<developer>
+			<id>neal</id>
+			<name>Neal Tovsen</name>
+			<email>neal@apruve.com</email>
+			<organization>Apruve</organization>
+			<organizationUrl>http://www.apruve.com</organizationUrl>
+			<timezone>America/Chicago</timezone>
+		</developer>
+	</developers>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
