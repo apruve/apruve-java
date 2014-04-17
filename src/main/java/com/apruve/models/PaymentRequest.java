@@ -67,7 +67,6 @@ public class PaymentRequest {
 	private String merchantOrderId;
 	@XmlElement(name = "amount_cents")
 	private Integer amountCents;
-	private Boolean recurring;
 	@XmlElement(name = "tax_cents")
 	private Integer taxCents;
 	@XmlElement(name = "shipping_cents")
@@ -191,8 +190,6 @@ public class PaymentRequest {
 			buf.append(taxCents);
 		if (shippingCents != null)
 			buf.append(shippingCents);
-		if (recurring != null)
-			buf.append(recurring);
 
 		for (LineItem line : lineItems) {
 			buf.append(line.toValueString());
@@ -301,18 +298,21 @@ public class PaymentRequest {
 	}
 
 	/**
+	 * The recurring flag is no longer used.  This method will be removed in a future version of the library.
 	 * @return the recurring
+	 * @deprecated
 	 */
 	public Boolean getRecurring() {
-		return recurring;
+		return false;
 	}
 
 	/**
+	 * The recurring flag is no longer used.  This method will be removed in a future version of the library.
 	 * @param recurring
 	 *            the recurring to set
+	 * @deprecated
 	 */
 	public void setRecurring(Boolean recurring) {
-		this.recurring = recurring;
 	}
 
 	/**
