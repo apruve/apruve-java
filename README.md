@@ -1,6 +1,6 @@
 # Apruve
 
-Online Marketplace Payments
+Innovation in the world of B2B Payments
 
 ## Issues
 
