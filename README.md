@@ -13,7 +13,7 @@ Please use [Github issues](https://github.com/apruve/apruve-java/issues) to requ
 Add this dependency to your `pom.xml`:
 
     <dependency>
-	    <groupId>apruve</groupId>
+	    <groupId>com.apruve</groupId>
 	    <artifactId>apruve-java</artifactId>
 	    <version>0.3.0</version>
     </dependency>
