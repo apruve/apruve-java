@@ -15,7 +15,7 @@ Add this dependency to your `pom.xml`:
     <dependency>
 	    <groupId>com.apruve</groupId>
 	    <artifactId>apruve-java</artifactId>
-	    <version>0.3.0</version>
+	    <version>0.3.1</version>
     </dependency>
 
 **NOTE**: the `<version>XXX</version>` can be out of date in this README.
