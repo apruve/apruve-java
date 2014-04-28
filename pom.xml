@@ -3,7 +3,7 @@
 	<groupId>com.apruve</groupId>
 	<artifactId>apruve-java</artifactId>
 	<packaging>jar</packaging>
-	<version>0.3.1</version>
+	<version>0.3.2-SNAPSHOT</version>
 	<name>Apruve Client for Java</name>
 	<description>Java client for merchant integration with Apruve</description>
 	<url>http://www.apruve.com</url>
