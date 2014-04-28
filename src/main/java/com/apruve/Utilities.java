@@ -4,15 +4,13 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Utilities {
-	private static final Logger logger = LoggerFactory
-			.getLogger(Utilities.class);
+	private static final Logger logger = Logger.getLogger(Utilities.class
+			.getName());
 
-	// TODO: This really needs to be tested.
 	private static final DateFormat timestampParser = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ssXXX");
 
@@ -26,7 +24,7 @@ public class Utilities {
 		try {
 			return hasText(date) ? timestampParser.parse(date) : null;
 		} catch (ParseException e) {
-			logger.warn("parseTimestamp - ParseException caught.", e);
+			logger.log(Level.WARNING, "parseTimestamp - ParseException caught.", e);
 		}
 
 		return null;
@@ -35,7 +33,7 @@ public class Utilities {
 	public static String formatTimestamp(Date date) {
 		return timestampParser.format(date);
 	}
-	
+
 	/**
 	 * @param s
 	 * @return
