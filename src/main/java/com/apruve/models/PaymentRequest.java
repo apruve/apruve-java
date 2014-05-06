@@ -1,9 +1,7 @@
 package com.apruve.models;
 
 import static com.apruve.Utilities.hasText;
-import static com.apruve.Utilities.parseTimestamp;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -62,6 +60,7 @@ public class PaymentRequest {
 	private String id;
 	@XmlElement(name = "merchant_id")
 	private String merchantId;
+	private String username;
 	private PaymentRequestStatus status = PaymentRequestStatus.NEW;
 	@XmlElement(name = "merchant_order_id")
 	private String merchantOrderId;
@@ -141,7 +140,7 @@ public class PaymentRequest {
 	 *         exist
 	 */
 	public ApruveResponse<PaymentRequestUpdateResponse> finalizeRequest() {
-		return ApruveClient.getInstance().put(getFinalizePath(this.id), "",
+		return ApruveClient.getInstance().post(getFinalizePath(this.id), "",
 				PaymentRequestUpdateResponse.class);
 	}
 
@@ -240,14 +239,6 @@ public class PaymentRequest {
 	 */
 	public PaymentRequestStatus getStatus() {
 		return status;
-	}
-
-	/**
-	 * @param status
-	 *            the status to set
-	 */
-	public void setStatus(PaymentRequestStatus status) {
-		this.status = status;
 	}
 
 	/**
@@ -408,44 +399,10 @@ public class PaymentRequest {
 	}
 
 	/**
-	 * @param apiUrl
-	 *            the apiUrl to set
-	 */
-	public void setApiUrl(URL apiUrl) {
-		this.apiUrl = apiUrl;
-	}
-
-	/**
-	 * @param apiUrl
-	 *            the apiUrl to set
-	 * @throws MalformedURLException
-	 */
-	public void setApiUrl(String apiUrl) throws MalformedURLException {
-		this.apiUrl = hasText(apiUrl) ? new URL(apiUrl) : null;
-	}
-
-	/**
 	 * @return the viewUrl
 	 */
 	public URL getViewUrl() {
 		return viewUrl;
-	}
-
-	/**
-	 * @param viewUrl
-	 *            the viewUrl to set
-	 */
-	public void setViewUrl(URL viewUrl) {
-		this.viewUrl = viewUrl;
-	}
-
-	/**
-	 * @param viewUrl
-	 *            the viewUrl to set
-	 * @throws MalformedURLException
-	 */
-	public void setViewUrl(String viewUrl) throws MalformedURLException {
-		this.viewUrl = hasText(viewUrl) ? new URL(viewUrl) : null;
 	}
 
 	/**
@@ -456,41 +413,14 @@ public class PaymentRequest {
 	}
 
 	/**
-	 * @param createdAt
-	 *            the createdAt to set
-	 */
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	/**
-	 * @param createdAt
-	 *            the createdAt to set
-	 */
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = parseTimestamp(createdAt);
-	}
-
-	/**
 	 * @return the updatedAt
 	 */
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
 
-	/**
-	 * @param updatedAt
-	 *            the updatedAt to set
-	 */
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	/**
-	 * @param updatedAt
-	 */
-	public void setUpdatedAt(String updatedAt) {
-		this.updatedAt = parseTimestamp(updatedAt);
+	public String getUsername() {
+		return username;
 	}
 
 	public static String getPaymentRequestsPath() {
