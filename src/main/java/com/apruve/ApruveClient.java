@@ -19,7 +19,7 @@ import org.glassfish.jersey.filter.LoggingFilter;
  * A convenient class for integrating to the Apruve API. Implemented as a
  * Singleton.
  * 
- * Initialize with: ApruveMerchant.init(apiKey, Environment);
+ * Initialize with: ApruveClient.init(apiKey, Environment);
  * 
  * More documentation at https://www.apruve.com/doc
  * 
