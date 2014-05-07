@@ -6,11 +6,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.apruve.JsonUtil;
+import com.apruve.models.PaymentRequest.PaymentRequestStatus;
 
 @XmlRootElement
 public class PaymentRequestUpdateResponse {
 	private String id;
-	private PaymentRequest status;
+	private PaymentRequestStatus status;
 	@XmlElement(name="api_url")
 	private URL apiUrl;
 	@XmlElement(name="view_url")
@@ -33,11 +34,11 @@ public class PaymentRequestUpdateResponse {
 		this.id = id;
 	}
 
-	public PaymentRequest getStatus() {
+	public PaymentRequestStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(PaymentRequest status) {
+	public void setStatus(PaymentRequestStatus status) {
 		this.status = status;
 	}
 
