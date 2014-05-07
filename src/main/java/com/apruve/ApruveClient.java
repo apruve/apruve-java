@@ -101,7 +101,7 @@ public class ApruveClient {
 		// TODO Build a better logging filter that masks the API key and shows
 		// the request/response body
 		Client client = ClientBuilder.newClient().register(LoggingFilter.class);
-		WebTarget target = client.target(getEnvironment().getBaseUrl() + path);
+		WebTarget target = client.target(getEnvironment().getApiV3Url() + path);
 		Builder builder = target.request(MediaType.APPLICATION_JSON).header(
 				"Apruve-Api-Key", getApiKey());
 
