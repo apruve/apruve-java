@@ -2,6 +2,7 @@ package com.apruve.models;
 
 import static com.apruve.Utilities.hasText;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -19,6 +20,7 @@ import com.apruve.ApruveClient;
 import com.apruve.ApruveResponse;
 import com.apruve.JsonUtil;
 import com.apruve.ShaUtil;
+import com.apruve.Utilities;
 
 /**
  * A request to a payer for payment on behalf of a shopper. In order to provide
@@ -245,6 +247,14 @@ public class PaymentRequest {
 	 * @param status
 	 *            the status to set
 	 */
+	protected void setStatus(PaymentRequestStatus status) {
+		this.status = status;
+	}
+
+	/**
+	 * @param status
+	 *            the status to set
+	 */
 	public void setStatus(String status) {
 		this.status = PaymentRequestStatus.valueOf(status.toUpperCase());
 	}
@@ -399,10 +409,44 @@ public class PaymentRequest {
 	}
 
 	/**
+	 * @param apiUrl
+	 *            the apiUrl to set
+	 */
+	protected void setApiUrl(URL apiUrl) {
+		this.apiUrl = apiUrl;
+	}
+
+	/**
+	 * @param apiUrl
+	 *            the apiUrl to set
+	 * @throws MalformedURLException
+	 */
+	protected void setApiUrl(String apiUrl) throws MalformedURLException {
+		this.apiUrl = hasText(apiUrl) ? new URL(apiUrl) : null;
+	}
+
+	/**
 	 * @return the viewUrl
 	 */
 	public URL getViewUrl() {
 		return viewUrl;
+	}
+
+	/**
+	 * @param viewUrl
+	 *            the viewUrl to set
+	 */
+	protected void setViewUrl(URL viewUrl) {
+		this.viewUrl = viewUrl;
+	}
+
+	/**
+	 * @param viewUrl
+	 *            the viewUrl to set
+	 * @throws MalformedURLException
+	 */
+	protected void setViewUrl(String viewUrl) throws MalformedURLException {
+		this.viewUrl = hasText(viewUrl) ? new URL(viewUrl) : null;
 	}
 
 	/**
@@ -413,12 +457,43 @@ public class PaymentRequest {
 	}
 
 	/**
+	 * @param createdAt
+	 *            the createdAt to set
+	 */
+	protected void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	/**
+	 * @param createdAt
+	 *            the createdAt to set
+	 */
+	protected void setCreatedAt(String createdAt) {
+		this.createdAt = Utilities.parseTimestamp(createdAt);
+	}
+
+	/**
 	 * @return the updatedAt
 	 */
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
 
+	/**
+	 * @param updatedAt
+	 *            the updatedAt to set
+	 */
+	protected void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	/**
+	 * @param updatedAt
+	 */
+	protected void setUpdatedAt(String updatedAt) {
+		this.updatedAt = Utilities.parseTimestamp(updatedAt);
+	}
+	
 	public String getUsername() {
 		return username;
 	}
