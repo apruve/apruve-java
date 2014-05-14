@@ -299,24 +299,6 @@ public class PaymentRequest {
 	}
 
 	/**
-	 * The recurring flag is no longer used.  This method will be removed in a future version of the library.
-	 * @return the recurring
-	 * @deprecated
-	 */
-	public Boolean getRecurring() {
-		return false;
-	}
-
-	/**
-	 * The recurring flag is no longer used.  This method will be removed in a future version of the library.
-	 * @param recurring
-	 *            the recurring to set
-	 * @deprecated
-	 */
-	public void setRecurring(Boolean recurring) {
-	}
-
-	/**
 	 * @return the taxCents
 	 */
 	public Integer getTaxCents() {
