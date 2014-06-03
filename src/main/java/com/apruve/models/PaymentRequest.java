@@ -183,6 +183,7 @@ public class PaymentRequest {
 		StringBuilder buf = new StringBuilder();
 
 		buf.append(StringUtils.defaultString(merchantId));
+		buf.append(StringUtils.defaultString(merchantOrderId));
 		if (amountCents != null)
 			buf.append(amountCents);
 		if (currency != null)

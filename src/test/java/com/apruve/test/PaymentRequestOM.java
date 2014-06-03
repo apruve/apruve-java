@@ -8,6 +8,7 @@ import com.apruve.models.PaymentRequest;
 public class PaymentRequestOM {
 
 	private static final String A_MERCHANT_ID = "AMerchantId";
+	private static final String AN_ORDER_ID = "AnOrderId";
 
 	public static PaymentRequest getPaymentRequestSimple() {
 		PaymentRequest request = new PaymentRequest(A_MERCHANT_ID);
@@ -19,6 +20,7 @@ public class PaymentRequestOM {
 	
 	public static PaymentRequest getPaymentRequest() {
 		PaymentRequest request = new PaymentRequest(A_MERCHANT_ID);
+		request.setMerchantOrderId(AN_ORDER_ID);
 		request.setAmountCents(new Integer(100));
 		request.setLineItems(LineItemOM.getLineItems());
 		
