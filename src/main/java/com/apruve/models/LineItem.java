@@ -22,12 +22,16 @@ public class LineItem {
 	protected static final String LINE_ITEM_PATH = PaymentRequest.PAYMENT_REQUESTS_PATH + "%reqId/line_items/";
 	
 	private String id;
+	@XmlElement(name="payment_request_id")
+	private String paymentRequestId;
 	private String title;
 	@XmlElement(name="amount_cents")
 	private Integer amountCents;
 	@XmlElement(name="price_ea_cents")
 	private Integer priceEachCents;
 	private Integer quantity;
+	@XmlElement(name="merchant_notes")
+	private String merchantNotes;
 	private String description;
 	@XmlElement(name="variant_info")
 	private String variantInfo;
@@ -155,6 +159,13 @@ public class LineItem {
 		this.quantity = quantity;
 	}
 
+	public String getMerchantNotes() {
+		return merchantNotes;
+	}
+	
+	public void setMerchantNotes(String merchantNotes){
+		this.merchantNotes = merchantNotes;
+	}
 	/**
 	 * @return the description
 	 */
@@ -260,6 +271,14 @@ public class LineItem {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getPaymentRequestId() {
+		return paymentRequestId;
+	}
+	
+	public void setPaymentRequestId(String paymentRequestId) {
+		this.paymentRequestId = paymentRequestId;
 	}
 
 	public static String getLineItemsPath(String paymentRequestId) {
