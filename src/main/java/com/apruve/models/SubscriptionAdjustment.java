@@ -53,6 +53,8 @@ public class SubscriptionAdjustment {
 	@XmlElement(name = "price_ea_cents")
 	private Integer priceEachCents;
 	private Integer quantity;
+	@XmlElement(name = "merchant_notes")
+	private String merchantNotes;
 	private String description;
 	@XmlElement(name = "variant_info")
 	private String variantInfo;
@@ -181,6 +183,14 @@ public class SubscriptionAdjustment {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+	
+	public String getMerchantNotes() {
+		return merchantNotes;
+	}
+	
+	public void setMerchantNotes(String merchantNotes) {
+		this.merchantNotes = merchantNotes;
 	}
 
 	public String getDescription() {
