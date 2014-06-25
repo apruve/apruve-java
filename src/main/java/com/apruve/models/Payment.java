@@ -60,6 +60,7 @@ public class Payment {
 	private PaymentStatus status;
 	@XmlElement(name = "amount_cents")
 	private Integer amountCents;
+	@XmlElement(name = "currency")
 	private String currency;
 	@XmlElement(name = "merchant_notes")
 	private String merchantNotes;
