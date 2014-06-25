@@ -13,7 +13,7 @@ public class PaymentItem {
 	private String title;
 	@XmlElement(name="amount_cents")
 	private Integer amountCents;
-	@XmlElement(name="price_each_cents")
+	@XmlElement(name="price_ea_cents")
 	private Integer priceEachCents;
 	private Integer quantity;
 	@XmlElement(name="merchant_notes")
