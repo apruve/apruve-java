@@ -365,8 +365,10 @@ public class PaymentRequest {
 	/**
 	 * @param currency
 	 *            the currency to set
+	 * @throws IllegalArgumentException
 	 */
-	public void setCurrency(String currency) {
+	public void setCurrency(String currency) throws IllegalArgumentException {
+		Currency.getInstance(currency);
 		this.currency = currency;
 	}
 
