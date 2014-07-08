@@ -1,5 +1,7 @@
 package com.apruve.models;
 
+import static com.apruve.Utilities.hasText;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Currency;
@@ -58,7 +60,8 @@ public class Payment {
 	private PaymentStatus status;
 	@XmlElement(name = "amount_cents")
 	private Integer amountCents;
-	private Currency currency;
+	@XmlElement(name = "currency")
+	private String currency;
 	@XmlElement(name = "merchant_notes")
 	private String merchantNotes;
 	@XmlElement(name = "payment_items")
@@ -193,7 +196,7 @@ public class Payment {
 	 * @return the currency
 	 */
 	public Currency getCurrency() {
-		return currency;
+		return Currency.getInstance(currency);
 	}
 
 	/**
@@ -201,14 +204,16 @@ public class Payment {
 	 *            the currency to set
 	 */
 	public void setCurrency(Currency currency) {
-		this.currency = currency;
+		this.currency = currency.getCurrencyCode();
 	}
 
 	/**
-	 * @param currencyCode
+	 * @param currency
+	 *            the currency to set
 	 */
-	public void setCurrency(String currencyCode) {
-		this.currency = Currency.getInstance(currencyCode);
+	public void setCurrency(String currency) {
+		this.currency = hasText(currency) ? Currency.getInstance(currency).getCurrencyCode()
+						: null;
 	}
 
 	/**

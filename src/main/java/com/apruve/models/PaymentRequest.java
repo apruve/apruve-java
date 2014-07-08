@@ -62,6 +62,7 @@ public class PaymentRequest {
 	private String id;
 	@XmlElement(name = "merchant_id")
 	private String merchantId;
+	@XmlElement(name = "username")
 	private String username;
 	private PaymentRequestStatus status = PaymentRequestStatus.NEW;
 	@XmlElement(name = "merchant_order_id")
@@ -72,7 +73,8 @@ public class PaymentRequest {
 	private Integer taxCents;
 	@XmlElement(name = "shipping_cents")
 	private Integer shippingCents;
-	private Currency currency;
+	@XmlElement(name = "currency")
+	private String currency;
 	@XmlElement(name = "line_items")
 	private List<LineItem> lineItems;
 	@XmlElement(name = "api_url")
@@ -187,7 +189,7 @@ public class PaymentRequest {
 		if (amountCents != null)
 			buf.append(amountCents);
 		if (currency != null)
-			buf.append(StringUtils.defaultString(currency.getCurrencyCode()));
+			buf.append(currency);
 		if (taxCents != null)
 			buf.append(taxCents);
 		if (shippingCents != null)
@@ -349,7 +351,7 @@ public class PaymentRequest {
 	 * @return the currency
 	 */
 	public Currency getCurrency() {
-		return currency;
+		return Currency.getInstance(currency);
 	}
 
 	/**
@@ -357,7 +359,7 @@ public class PaymentRequest {
 	 *            the currency to set
 	 */
 	public void setCurrency(Currency currency) {
-		this.currency = currency;
+		this.currency = currency.getCurrencyCode();
 	}
 
 	/**
@@ -365,8 +367,8 @@ public class PaymentRequest {
 	 *            the currency to set
 	 */
 	public void setCurrency(String currency) {
-		this.currency = hasText(currency) ? Currency.getInstance(currency)
-				: null;
+		this.currency = hasText(currency) ? Currency.getInstance(currency).getCurrencyCode()
+						: null;
 	}
 
 	/**
