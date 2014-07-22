@@ -1,8 +1,6 @@
 package com.apruve.test;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Calendar;
 
 import com.apruve.models.LineItem;
 import com.apruve.models.PaymentRequest;
