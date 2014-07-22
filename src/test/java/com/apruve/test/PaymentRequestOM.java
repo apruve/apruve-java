@@ -1,6 +1,8 @@
 package com.apruve.test;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Calendar;
 
 import com.apruve.models.LineItem;
 import com.apruve.models.PaymentRequest;
@@ -23,6 +25,7 @@ public class PaymentRequestOM {
 		request.setMerchantOrderId(AN_ORDER_ID);
 		request.setAmountCents(new Integer(100));
 		request.setLineItems(LineItemOM.getLineItems());
+		request.setExpiresAt("2014-12-31T00:00:00-06:00");
 		
 		return request;
 	}
