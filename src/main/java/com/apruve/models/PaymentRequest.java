@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 import com.apruve.ApruveClient;
 import com.apruve.ApruveResponse;
@@ -85,6 +86,8 @@ public class PaymentRequest {
 	private Date createdAt;
 	@XmlElement(name = "updated_at")
 	private Date updatedAt;
+	@XmlElement(name = "expires_at")
+	private Date expiresAt;
 
 	protected PaymentRequest() {
 		// Required for JAXB
@@ -194,7 +197,10 @@ public class PaymentRequest {
 			buf.append(taxCents);
 		if (shippingCents != null)
 			buf.append(shippingCents);
-
+		if (expiresAt != null)
+		{
+			buf.append(DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(expiresAt));
+		}
 		for (LineItem line : lineItems) {
 			buf.append(line.toValueString());
 		}
@@ -479,6 +485,30 @@ public class PaymentRequest {
 		this.updatedAt = Utilities.parseTimestamp(updatedAt);
 	}
 	
+	/**
+	 * @return the expiresAt
+	 */
+	public Date getExpiresAt() {
+		return expiresAt;
+	}
+	
+	/**
+	 * @param expiresAt
+	 */
+	public void setExpiresAt(Date expiresAt) {
+		this.expiresAt = expiresAt;
+	}
+	
+	/**
+	 * @param expiresAt
+	 */
+	public void setExpiresAt(String expiresAt) {
+		this.expiresAt = Utilities.parseTimestamp(expiresAt);
+	}
+	
+	/**
+	 * @return the username
+	 */
 	public String getUsername() {
 		return username;
 	}
