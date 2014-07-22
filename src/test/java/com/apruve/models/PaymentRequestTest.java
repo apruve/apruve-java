@@ -18,7 +18,7 @@ import com.apruve.test.PaymentRequestOM;
 public class PaymentRequestTest {
 	private static final String AN_API_KEY = "AnApiKey";
 	private static final String VALUES_SIMPLE = "AMerchantId100A Line Item100";
-	private static final String VALUES_COMPLEX = "AMerchantIdAnOrderId100A Line Item100Another Line Item100A discription for this lineA_SKU_NUMBER";
+	private static final String VALUES_COMPLEX = "AMerchantIdAnOrderId1002014-12-31T00:00:00-06:00A Line Item100Another Line Item100A discription for this lineA_SKU_NUMBER";
 	
 	@Test
 	public void testMarshal() throws Exception {
@@ -56,10 +56,10 @@ public class PaymentRequestTest {
 
 	@Test
 	public void testToJsonComplex() {
-		String hash = "8e7e6508359eabe96201e89c452041fbc9687e4ecf91184418001be5dce96b26";
+		String hash = "b2e468a46c289ceb3dc7d53f13bce879891c0183014d8fd066ef1425b3f5049d";
 		ApruveClient.init(AN_API_KEY, ApruveEnvironment.TEST);
 		PaymentRequest pr = PaymentRequestOM.getPaymentRequest();
 		assertEquals(VALUES_COMPLEX, pr.toValueString());
-//		assertEquals(hash, pr.toSecureHash());
+		assertEquals(hash, pr.toSecureHash());
 	}
 }

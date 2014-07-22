@@ -23,6 +23,7 @@ public class PaymentRequestOM {
 		request.setMerchantOrderId(AN_ORDER_ID);
 		request.setAmountCents(new Integer(100));
 		request.setLineItems(LineItemOM.getLineItems());
+		request.setExpiresAt("2014-12-31T00:00:00-06:00");
 		
 		return request;
 	}
