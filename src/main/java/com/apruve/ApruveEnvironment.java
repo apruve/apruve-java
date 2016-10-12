@@ -5,7 +5,7 @@ package com.apruve;
  * @since 0.1
  */
 public enum ApruveEnvironment {
-	PROD("https://www.apruve.com"), TEST("https://test.apruve.com"), DEV("http://localhost:3000");
+	PROD("https://app.apruve.com"), TEST("https://test.apruve.com"), DEV("http://localhost:3000");
 
 	private static final String API_V3_PATH = "/api/v3";
 	private static final String JS_PATH = "/js/apruve.js";
