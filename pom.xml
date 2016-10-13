@@ -3,7 +3,7 @@
 	<groupId>com.apruve</groupId>
 	<artifactId>apruve-java</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4.2</version>
+	<version>0.4.3-SNAPSHOT</version>
 	<name>Apruve Client for Java</name>
 	<description>Java client for merchant integration with Apruve</description>
 	<url>http://www.apruve.com</url>
@@ -17,7 +17,7 @@
 		<url>https://github.com/apruve/apruve-java</url>
 		<connection>scm:git:git@github.com:apruve/apruve-java.git</connection>
 		<developerConnection>scm:git:git@github.com:apruve/apruve-java.git</developerConnection>
-		<tag>apruve-java-0.4.2</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<distributionManagement>
 		<snapshotRepository>
