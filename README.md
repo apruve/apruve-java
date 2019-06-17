@@ -29,17 +29,19 @@ key, and an instance of ApruveEnvironment.  You may find your API key in the Tec
 
 An ApruveEnvironment instance is used to specify the location of the Apruve servers.  There are three ways to get an ApruveEnvironment instance:
 * The class defines a couple of convenience instances (`ApruveEnvironment.TEST` and `ApruveEnvironment.PROD`) that correspond to Apruve's test (https://test.apruve.com) and production (https://app.apruve.com) servers.  Most of the time you will be able to use one of these.
-
+```
 	ApruveClient client = new ApruveClient.("myAPIKey", ApruveEnvironment.TEST);
+```	
 * If you need to specify a non-standard URL for contacting the Apruve servers, you may construct an ApruveEnvironment specifying a URL scheme, host, and port:
-
+```
 	ApruveEnvironment env = new ApruveEnvironment("http", "localhost", 8080);
 	ApruveClient client = new ApruveClient("myAPIKey", env);
+```	
 * The default constructor will retrieve values for scheme, host, and port from the environment variables `APRUVE_SCHEME`, `APRUVE_HOST`, and `APRUVE_PORT` (values default to `http`, `localhost`, and `8080` respectively if the variables are not set).
-	
+```	
 	ApruveEnvironment env = new ApruveEnvironment();
 	ApruveClient client = new ApruveClient("myAPIKey", env);
-
+```
 ### Doing Stuff
 Each model class defines methods that implement calls to the different RESTful APIs defined for that model.  The basic pattern is that 
 actions that require a request body (creates, updates, etc.) are implemented as instance methods and use the state of the object
