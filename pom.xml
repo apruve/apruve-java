@@ -3,7 +3,7 @@
 	<groupId>com.apruve</groupId>
 	<artifactId>apruve-java</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4.3-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>Apruve Client for Java</name>
 	<description>Java client for merchant integration with Apruve</description>
 	<url>http://www.apruve.com</url>
@@ -101,6 +101,12 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.javafaker</groupId>
+			<artifactId>javafaker</artifactId>
+			<version>0.18</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>

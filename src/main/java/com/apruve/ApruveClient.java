@@ -1,6 +1,7 @@
 package com.apruve;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.ws.rs.client.Client;
@@ -13,67 +14,41 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status.Family;
 
-import org.glassfish.jersey.filter.LoggingFilter;
-
 /**
- * A convenient class for integrating to the Apruve API. Implemented as a
- * Singleton.
+ * A convenient class for integrating to the Apruve API.
  * 
  * Initialize with: ApruveClient.init(apiKey, Environment);
  * 
- * More documentation at https://www.apruve.com/doc
+ * More documentation at https://docs.apruve.com and
+ * https://github.com/apruve/apruve-java
  * 
  * @author https://github.com/nealtovsen
  * 
  */
 public class ApruveClient {
-	private static final Logger log = Logger.getLogger(ApruveClient.class
-			.getName());
+	private static final Logger log = Logger.getLogger(ApruveClient.class.getName());;
+	private static final LoggingFilter filter = new LoggingFilter(log, true, "Apruve-Api-Key");
 
 	private ApruveEnvironment env;
 
 	private String apiKey;
 
-	protected static ApruveClient client = null;
-
 	/**
 	 * @param apiKey
+	 *            The API Key for your merchant account. Create one for your test
+	 *            account on https://test.apruve.com, or create one
+	 *            for live transactions at https://app.apruve.com. 
 	 * @param env
+	 *            com.apruve.ApruveClient.Environment.PROD or
+	 *            com.apruve.ApruveClient.Environment.TEST, as appropriate.
 	 */
-	protected ApruveClient(String apiKey, ApruveEnvironment env) {
+	public ApruveClient(String apiKey, ApruveEnvironment env) {
 		if (apiKey == null)
 			throw new ApruveException("apiKey cannot be null");
 		if (env == null)
 			throw new ApruveException("env cannot be null");
 		this.apiKey = apiKey;
 		this.env = env;
-	}
-
-	/**
-	 * @return
-	 */
-	public static ApruveClient getInstance() {
-		if (client == null)
-			throw new ApruveException(
-					"Must first initialize with ApruveClient.init");
-		return client;
-	}
-
-	/**
-	 * Provides a single point of initialization for the ApruveClient library.
-	 * 
-	 * @param apiKey
-	 *            An API Key from your user account. Create on for your test
-	 *            account on https://test.apruve.com/merchants, or create one
-	 *            for live transactions at https://www.apruve.com/merchants. We
-	 *            recommend that you create a unique API Key for each merchant
-	 *            account.
-	 * @param env
-	 *            com.apruve.ApruveClient.Environment.PROD or
-	 *            com.apruve.ApruveClient.Environment.TEST, as appropriate.
-	 */
-	public static synchronized void init(String apiKey, ApruveEnvironment env) {
-		client = new ApruveClient(apiKey, env);
 	}
 
 	/**
@@ -90,39 +65,40 @@ public class ApruveClient {
 		return this.env;
 	}
 
-	/**
-	 * Intended for use in unit testing only.
-	 */
-	public static void initToNull() {
-		client = null;
-	}
-
 	protected Builder restRequest(String path) {
-		// TODO Build a better logging filter that masks the API key and shows
-		// the request/response body
-		Client client = ClientBuilder.newClient().register(LoggingFilter.class);
-		WebTarget target = client.target(getEnvironment().getApiV3Url() + path);
-		Builder builder = target.request(MediaType.APPLICATION_JSON).header(
-				"Apruve-Api-Key", getApiKey());
+		return restRequest(path, null);
+	}
+	
+	protected Builder restRequest(String path, Map<String, Object> queryParams) {
+		Client client = ClientBuilder.newClient().register(filter);
+		WebTarget target = client.target(getEnvironment().getApiV4Url() + path);
+		if (queryParams != null) {
+			for (String paramName : queryParams.keySet()) {
+				target = target.queryParam(paramName, queryParams.get(paramName));
+			}
+		}
+		Builder builder = target.request(MediaType.APPLICATION_JSON).header("Apruve-Api-Key", getApiKey());
 
 		return builder;
 	}
 
-	private <T> ApruveResponse<T> processResponse(Response response,
-			Class<T> resultType) {
+	private <T> ApruveResponse<T> processResponse(Response response, Class<T> resultType) {
 		T responseObject = null;
 		ApruveResponse<T> result;
 		if (response.getStatusInfo().getFamily() == Family.SUCCESSFUL) {
 			responseObject = response.readEntity(resultType);
 			result = new ApruveResponse<T>(response.getStatus(), responseObject);
 		} else {
-			result = new ApruveResponse<T>(response.getStatus(), null,
-					response.readEntity(String.class));
+			result = new ApruveResponse<T>(response.getStatus(), null, response.readEntity(String.class));
 		}
 
 		return result;
 	}
 
+	public <T> ApruveResponse<List<T>> index(String path, GenericType<List<T>> resultType) {
+		return index(path, resultType, null);
+	}
+	
 	/**
 	 * As get(), but specialized to return lists of objects for REST index
 	 * operations
@@ -134,20 +110,16 @@ public class ApruveClient {
 	 *            list returned
 	 * @return List of objects of a type as determined by resultType
 	 */
-	// TODO see if there's a cleaner way to do this. The whole GenericType thing
-	// is kind of a pain, and it duplicates processResponse.
-	public <T> ApruveResponse<List<T>> index(String path,
-			GenericType<List<T>> resultType) {
-		Response response = restRequest(path).get();
+	public <T> ApruveResponse<List<T>> index(String path, GenericType<List<T>> resultType,
+			Map<String, Object> queryParams) {
+		Response response = restRequest(path, queryParams).get();
 		List<T> responseObject = null;
 		ApruveResponse<List<T>> result;
 		if (response.getStatusInfo().getFamily() == Family.SUCCESSFUL) {
 			responseObject = response.readEntity(resultType);
-			result = new ApruveResponse<List<T>>(response.getStatus(),
-					responseObject);
+			result = new ApruveResponse<List<T>>(response.getStatus(), responseObject);
 		} else {
-			result = new ApruveResponse<List<T>>(response.getStatus(), null,
-					response.readEntity(String.class));
+			result = new ApruveResponse<List<T>>(response.getStatus(), null, response.readEntity(String.class));
 		}
 		return result;
 	}

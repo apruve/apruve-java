@@ -1,0 +1,31 @@
+package com.apruve.models;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
+
+import com.apruve.test.OrderItemOM;
+
+public class OrderItemTest {
+	private static final String VALUE_STRING = "Another Line Item100A description for this lineA_SKU_NUMBER";
+
+	@Test
+	public void testMarshal() throws Exception {
+		OrderItem obj = OrderItemOM.getLineItem();
+		ApruveModelTestHelper.doMarshalTest(obj, OrderItem.class);
+	}
+	
+	@Test
+	public void testCreateOrderItem() {
+		OrderItem item = new OrderItem("title");
+		assertNotNull(item);
+		assertEquals("title", item.getTitle());
+	}
+	
+	@Test
+	public void testToValueString() {
+		OrderItem item = OrderItemOM.getLineItem();
+		assertEquals(VALUE_STRING, item.toValueString());
+	}
+}
