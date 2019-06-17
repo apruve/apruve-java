@@ -9,6 +9,6 @@ public class FundingDetailTest {
 	@Test
 	public void testMarshal() throws Exception {
 		FundingDetail detail = FundingDetailOM.getFundingDetail();
-		ApruveModelTestHelper.doMarshalTest(detail, FundingDetail.class);
+		ApruveModelTestHelper.doMarshalTest(detail);
 	}
 }

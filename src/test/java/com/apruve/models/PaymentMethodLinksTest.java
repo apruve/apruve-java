@@ -9,6 +9,6 @@ public class PaymentMethodLinksTest {
 	@Test
 	public void testMarshal() throws Exception {
 		PaymentMethodLinks links = PaymentMethodLinksOM.getPaymentMethodLinks();
-		ApruveModelTestHelper.doMarshalTest(links, PaymentMethodLinks.class);
+		ApruveModelTestHelper.doMarshalTest(links);
 	}
 }

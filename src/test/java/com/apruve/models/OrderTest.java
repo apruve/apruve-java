@@ -14,7 +14,7 @@ public class OrderTest {
 	@Test
 	public void testMarshal() throws Exception {
 		Order order = OrderOM.getOrder();
-		ApruveModelTestHelper.doMarshalTest(order, Order.class);
+		ApruveModelTestHelper.doMarshalTest(order);
 	}
 	
 	@Test

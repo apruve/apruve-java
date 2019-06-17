@@ -1,6 +1,7 @@
 package com.apruve.models;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -75,7 +76,7 @@ public class Order {
 	@XmlElement(name = "shopper_id")
 	private String shopperId;
 	@XmlElement(name = "accepts_payment_via")
-	private String acceptsPaymentVia;
+	private Collection<String> acceptsPaymentVia;
 	@XmlElement(name = "accepts_payment_terms")
 	private String acceptsPaymentTerms;
 	@XmlElement(name = "final_state_at")
@@ -332,11 +333,11 @@ public class Order {
 		this.shopperId = shopperId;
 	}
 
-	public String getAcceptsPaymentVia() {
+	public Collection<String> getAcceptsPaymentVia() {
 		return acceptsPaymentVia;
 	}
 
-	public void setAcceptsPaymentVia(String acceptsPaymentVia) {
+	public void setAcceptsPaymentVia(Collection<String> acceptsPaymentVia) {
 		this.acceptsPaymentVia = acceptsPaymentVia;
 	}
 

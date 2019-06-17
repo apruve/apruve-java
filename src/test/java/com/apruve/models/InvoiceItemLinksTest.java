@@ -9,6 +9,6 @@ public class InvoiceItemLinksTest {
 	@Test
 	public void testMarshal() throws Exception {
 		InvoiceItemLinks links = InvoiceItemLinksOM.getInvoiceItemLinks();
-		ApruveModelTestHelper.doMarshalTest(links, InvoiceItemLinks.class);
+		ApruveModelTestHelper.doMarshalTest(links);
 	}
 }

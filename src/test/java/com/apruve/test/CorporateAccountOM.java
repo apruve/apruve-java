@@ -21,7 +21,7 @@ public class CorporateAccountOM {
   }
   public static CorporateAccount getCorporateAccountComplete() {
 	  CorporateAccount account = getCorporateAccount();
-	  account.setCreditAvailableCents(faker.number().numberBetween(0, 1000000));
+	  account.setCreditAvailableCents(faker.number().numberBetween(0, account.getCreditAmountCents()));
 	  account.setCreditBalanceCents(account.getCreditAmountCents()-account.getCreditAvailableCents());
 	  account.setMerchantAccountId(faker.commerce().promotionCode());
 	  return account;

@@ -13,7 +13,7 @@ public class AddressOM {
 		address.setCity(faker.city());
 		address.setState(faker.stateAbbr());
 		address.setCountryCode("US");
-		address.setZip(faker.zipCode());
+		address.setPostalCode(faker.zipCode());
 		return address;
 	}
 }

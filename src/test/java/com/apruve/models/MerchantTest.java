@@ -9,6 +9,6 @@ public class MerchantTest {
 	@Test
 	public void testMarshal() throws Exception {
 		Merchant merchant = MerchantOM.getMerchant();
-		ApruveModelTestHelper.doMarshalTest(merchant, Merchant.class);
+		ApruveModelTestHelper.doMarshalTest(merchant);
 	}
 }

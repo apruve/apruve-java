@@ -1,13 +1,11 @@
 package com.apruve;
 
-import java.io.StringWriter;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 
 public class JsonUtil {
 	private static final Logger log = Logger.getLogger(JsonUtil.class.getName());
@@ -24,17 +22,10 @@ public class JsonUtil {
 	
 	public String toJson(Object o) {
 		try {
-			StringWriter buffer = new StringWriter();
-			HashMap<String, Object> jaxbProps = new HashMap<String, Object>();
-			jaxbProps.put("eclipselink.media-type", "application/json");
-			jaxbProps.put("eclipselink.json.include-root", false);
-			JAXBContext ctx = JAXBContext.newInstance("com.apruve.models", this
-					.getClass().getClassLoader(), jaxbProps);
-			Marshaller m = ctx.createMarshaller();
-			m.marshal(o, buffer);
-
-			return buffer.toString();
-		} catch (JAXBException e) {
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.registerModule(new JaxbAnnotationModule());
+			return mapper.writeValueAsString(o);
+		} catch (JsonProcessingException e) {
 			log.log(Level.WARNING,
 					"Object provided is not configured for conversion to JSON");
 			return "";

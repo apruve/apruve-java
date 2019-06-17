@@ -14,6 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status.Family;
 
+import org.glassfish.jersey.jackson.JacksonFeature;
+
 /**
  * A convenient class for integrating to the Apruve API.
  * 
@@ -70,7 +72,11 @@ public class ApruveClient {
 	}
 	
 	protected Builder restRequest(String path, Map<String, Object> queryParams) {
-		Client client = ClientBuilder.newClient().register(filter);
+		Client client = ClientBuilder.newBuilder()
+				.register(JSONObjectMapperProvider.class)
+				.register(JacksonFeature.class)
+				.register(filter)
+				.build();
 		WebTarget target = client.target(getEnvironment().getApiV4Url() + path);
 		if (queryParams != null) {
 			for (String paramName : queryParams.keySet()) {

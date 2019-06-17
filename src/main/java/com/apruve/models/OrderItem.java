@@ -33,8 +33,6 @@ public class OrderItem {
 	private String currency;
 	@XmlElement(name="product_url")
 	private URL productUrl;
-	@XmlElement(name="product_image_url")
-	private URL productImageUrl;
 	@XmlElement(name="variant_info")
 	private String variantInfo;
 	private String vendor;
@@ -55,7 +53,7 @@ public class OrderItem {
 		return client.index(getOrderItemsPath(orderId), new GenericType<List<OrderItem>>() {});
 	}
 
-	public static ApruveResponse<? extends OrderItem> get(ApruveClient client, String orderItemId) {
+	public static ApruveResponse<OrderItem> get(ApruveClient client, String orderItemId) {
 		return client.get(getOrderItemPath(orderItemId), OrderItem.class);
 	}
 	
@@ -177,14 +175,6 @@ public class OrderItem {
 
 	public void setProductUrl(URL productUrl) {
 		this.productUrl = productUrl;
-	}
-
-	public URL getProductImageUrl() {
-		return productImageUrl;
-	}
-
-	public void setProductImageUrl(URL productImageUrl) {
-		this.productImageUrl = productImageUrl;
 	}
 
 	public String getVariantInfo() {

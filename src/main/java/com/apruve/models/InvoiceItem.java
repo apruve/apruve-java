@@ -23,8 +23,6 @@ public class InvoiceItem {
 	private String currency;
 	@XmlElement(name = "product_url")
 	private URL productUrl;
-	@XmlElement(name = "product_image_url")
-	private URL productImageUrl;
 	@XmlElement(name = "variant_info")
 	private String variantInfo;
 	private String vendor;
@@ -134,14 +132,6 @@ public class InvoiceItem {
 
 	public void setProductUrl(URL productUrl) {
 		this.productUrl = productUrl;
-	}
-
-	public URL getProductImageUrl() {
-		return productImageUrl;
-	}
-
-	public void setProductImageUrl(URL productImageUrl) {
-		this.productImageUrl = productImageUrl;
 	}
 
 	public String getVariantInfo() {

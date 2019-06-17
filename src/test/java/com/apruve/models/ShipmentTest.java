@@ -9,6 +9,6 @@ public class ShipmentTest {
 	@Test
 	public void testMarshal() throws Exception {
 		Shipment shipment = ShipmentOM.getShipment();
-		ApruveModelTestHelper.doMarshalTest(shipment, Shipment.class);
+		ApruveModelTestHelper.doMarshalTest(shipment);
 	}
 }

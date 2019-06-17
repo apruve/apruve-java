@@ -9,6 +9,6 @@ public class OrderChildLinksTest {
 	@Test
 	public void testMarshal() throws Exception {
 		OrderChildLinks links = OrderChildLinksOM.getOrderChildLinks();
-		ApruveModelTestHelper.doMarshalTest(links, OrderChildLinks.class);
+		ApruveModelTestHelper.doMarshalTest(links);
 	}
 }

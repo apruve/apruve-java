@@ -5,11 +5,13 @@ import java.util.List;
 
 import javax.ws.rs.core.GenericType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.apruve.ApruveClient;
 import com.apruve.ApruveResponse;
 import com.apruve.JsonUtil;
 
+@XmlRootElement
 public class CorporateAccount {
 	static final String CORPORATE_ACCOUNTS_PATH = Merchant.MERCHANT_PATH + "/corporate_accounts/";
 	static final String CORPORATE_ACCOUNT_PATH = CORPORATE_ACCOUNTS_PATH + "%accountId";

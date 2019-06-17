@@ -13,7 +13,7 @@ public class OrderItemTest {
 	@Test
 	public void testMarshal() throws Exception {
 		OrderItem obj = OrderItemOM.getLineItem();
-		ApruveModelTestHelper.doMarshalTest(obj, OrderItem.class);
+		ApruveModelTestHelper.doMarshalTest(obj);
 	}
 	
 	@Test

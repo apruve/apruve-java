@@ -9,6 +9,6 @@ public class PaymentTermTest {
 	@Test
 	public void testMarshal() throws Exception {
 		PaymentTerm term = PaymentTermOM.getPaymentTerm();
-		ApruveModelTestHelper.doMarshalTest(term, PaymentTerm.class);
+		ApruveModelTestHelper.doMarshalTest(term);
 	}
 }

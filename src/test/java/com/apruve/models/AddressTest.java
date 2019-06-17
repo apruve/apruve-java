@@ -9,6 +9,6 @@ public class AddressTest {
 	@Test
 	public void testMarshal() throws Exception {
 		Address address = AddressOM.getAddress();
-		ApruveModelTestHelper.doMarshalTest(address, Address.class);
+		ApruveModelTestHelper.doMarshalTest(address);
 	}
 }

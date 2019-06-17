@@ -12,7 +12,7 @@ public class InvoiceTest {
 	@Test
 	public void testMarshal() throws Exception {
 		Invoice obj = InvoiceOM.getInvoiceBasic();
-		ApruveModelTestHelper.doMarshalTest(obj, Invoice.class);
+		ApruveModelTestHelper.doMarshalTest(obj);
 	}
 	
 	@Test

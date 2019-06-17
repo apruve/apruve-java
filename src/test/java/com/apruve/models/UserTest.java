@@ -9,6 +9,6 @@ public class UserTest {
 	@Test
 	public void testMarshal() throws Exception {
 		User user = UserOM.getUser();
-		ApruveModelTestHelper.doMarshalTest(user, User.class);
+		ApruveModelTestHelper.doMarshalTest(user);
 	}
 }

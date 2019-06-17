@@ -9,6 +9,6 @@ public class PaymentMethodTest {
 	@Test
 	public void testMarshal() throws Exception {
 		PaymentMethod method = PaymentMethodOM.getPaymentMethod();
-		ApruveModelTestHelper.doMarshalTest(method, PaymentMethod.class);
+		ApruveModelTestHelper.doMarshalTest(method);
 	}
 }
