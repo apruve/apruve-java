@@ -10,7 +10,7 @@ import com.apruve.ApruveResponse;
 import com.apruve.JsonUtil;
 
 public class InvoiceReturn {
-	static final String INVOICE_RETURNS_PATH = Invoice.INVOICE_PATH + "/invoice_returns/";
+	static final String INVOICE_RETURNS_PATH = "/invoices/%invoiceId/invoice_returns/";
 	static final String INVOICE_RETURN_PATH = INVOICE_RETURNS_PATH + "%invoiceReturnId";
 	
 	private String id; 

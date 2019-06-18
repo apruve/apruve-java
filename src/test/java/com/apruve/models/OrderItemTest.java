@@ -28,4 +28,14 @@ public class OrderItemTest {
 		OrderItem item = OrderItemOM.getLineItem();
 		assertEquals(VALUE_STRING, item.toValueString());
 	}
+	
+	@Test
+	public void testGetOrderItemsPath() {
+		assertEquals("/orders/order_id/order_items/", OrderItem.getOrderItemsPath("order_id"));
+	}
+	
+	@Test
+	public void testGetOrderItemPath() {
+		assertEquals("/order_items/item_id", OrderItem.getOrderItemPath("item_id"));
+	}
 }

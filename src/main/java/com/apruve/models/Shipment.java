@@ -12,7 +12,7 @@ import com.apruve.ApruveResponse;
 import com.apruve.JsonUtil;
 
 public class Shipment {
-	static final String SHIPMENTS_PATH = Invoice.INVOICE_PATH + "/shipments/";
+	static final String SHIPMENTS_PATH = "/invoices/%invoiceId/shipments/";
 	static final String SHIPMENT_PATH = SHIPMENTS_PATH + "%shipmentId";
 	
 	private String id;

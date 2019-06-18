@@ -49,4 +49,9 @@ public class OrderTest {
 		Order order = OrderOM.getOrder();
 		assertEquals(hash, order.toSecureHash());
 	}
+	
+	@Test
+	public void testGetOrderPath() {
+		assertEquals("/orders/order_id", Order.getOrderPath("order_id"));
+	}
 }
