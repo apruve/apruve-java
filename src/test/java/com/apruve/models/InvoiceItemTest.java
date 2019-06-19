@@ -1,6 +1,7 @@
 package com.apruve.models;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
@@ -21,5 +22,13 @@ public class InvoiceItemTest {
 		assertNotNull(item);
 		assertEquals("title", item.getTitle());
 		assertEquals(4321, item.getPriceTotalCents().intValue());
+	}
+
+	@Test
+	public void testToJson() {
+		InvoiceItem obj = InvoiceItemOM.getInvoiceItem();
+		String json = obj.toJson();
+		assertNotNull(json);
+		assertFalse(json.isEmpty());
 	}
 }

@@ -1,6 +1,7 @@
 package com.apruve.models;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
@@ -53,5 +54,13 @@ public class OrderTest {
 	@Test
 	public void testGetOrderPath() {
 		assertEquals("/orders/order_id", Order.getOrderPath("order_id"));
+	}
+
+	@Test
+	public void testToJson() {
+		Order obj = OrderOM.getOrder();
+		String json = obj.toJson();
+		assertNotNull(json);
+		assertFalse(json.isEmpty());
 	}
 }

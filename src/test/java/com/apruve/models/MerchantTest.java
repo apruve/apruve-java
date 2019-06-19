@@ -1,5 +1,8 @@
 package com.apruve.models;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 
 import com.apruve.test.MerchantOM;
@@ -17,5 +20,13 @@ public class MerchantTest {
 	@Test
 	public void testGetMerchantPath() {
 		Assert.assertEquals("/merchants/merchant_id", Merchant.getMerchantPath("merchant_id"));
+	}
+
+	@Test
+	public void testToJson() {
+		Merchant obj = MerchantOM.getMerchant();
+		String json = obj.toJson();
+		assertNotNull(json);
+		assertFalse(json.isEmpty());
 	}
 }

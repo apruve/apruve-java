@@ -1,6 +1,7 @@
 package com.apruve.models;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
@@ -30,5 +31,13 @@ public class InvoiceTest {
 	@Test
 	public void testGetInvoicePath() {
 		assertEquals("/invoices/invoice_id", Invoice.getInvoicePath("invoice_id"));
+	}
+
+	@Test
+	public void testToJson() {
+		Invoice obj = InvoiceOM.getInvoiceBasic();
+		String json = obj.toJson();
+		assertNotNull(json);
+		assertFalse(json.isEmpty());
 	}
 }

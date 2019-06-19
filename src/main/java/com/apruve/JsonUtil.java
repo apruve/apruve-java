@@ -8,9 +8,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 
 public class JsonUtil {
-	private static final Logger log = Logger.getLogger(JsonUtil.class.getName());
-
-	private static final JsonUtil instance = new JsonUtil();
+	private static final Logger log;
+	private static final ObjectMapper mapper;
+	private static final JsonUtil instance;
+	
+	static {
+		log = Logger.getLogger(JsonUtil.class.getName());
+		mapper = new ObjectMapper();
+		mapper.registerModule(new JaxbAnnotationModule());
+		instance = new JsonUtil();
+	}
 	
 	private JsonUtil() {
 		//singleton
@@ -22,8 +29,6 @@ public class JsonUtil {
 	
 	public String toJson(Object o) {
 		try {
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.registerModule(new JaxbAnnotationModule());
 			return mapper.writeValueAsString(o);
 		} catch (JsonProcessingException e) {
 			log.log(Level.WARNING,

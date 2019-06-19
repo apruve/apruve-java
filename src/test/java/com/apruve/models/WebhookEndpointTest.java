@@ -1,6 +1,8 @@
 package com.apruve.models;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -22,5 +24,13 @@ public class WebhookEndpointTest {
 	@Test
 	public void testGetWebhookEndpointPath() {
 		assertEquals("/merchants/merchant_id/webhook_endpoints/endpoint_id", WebhookEndpoint.getWebhookEndpointPath("merchant_id", "endpoint_id"));
+	}
+
+	@Test
+	public void testToJson() {
+		WebhookEndpoint obj = WebhookEndpointOM.getWebhookEndpoint();
+		String json = obj.toJson();
+		assertNotNull(json);
+		assertFalse(json.isEmpty());
 	}
 }

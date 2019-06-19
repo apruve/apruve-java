@@ -1,6 +1,8 @@
 package com.apruve.models;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -17,5 +19,13 @@ public class UserTest {
 	@Test
 	public void testGetUserPath() {
 		assertEquals("/users/user_id", User.getUserPath("user_id"));
+	}
+
+	@Test
+	public void testToJson() {
+		User obj = UserOM.getUser();
+		String json = obj.toJson();
+		assertNotNull(json);
+		assertFalse(json.isEmpty());
 	}
 }

@@ -1,12 +1,18 @@
 package com.apruve.models;
 
-import com.apruve.JsonUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 
 public class ApruveModelTestHelper {
+	private static final ObjectMapper mapper;
+	
+	static {
+		mapper=new ObjectMapper();
+		mapper.registerModule(new JaxbAnnotationModule());
+	}
 
-	protected static String doMarshalTest(Object obj) {
-		String json = JsonUtil.getInstance().toJson(obj);
-		System.out.println(obj.getClass().getName() + ":" + json);
-		return json;
+	protected static String doMarshalTest(Object obj) throws JsonProcessingException {
+		return mapper.writeValueAsString(obj);
 	}
 }
