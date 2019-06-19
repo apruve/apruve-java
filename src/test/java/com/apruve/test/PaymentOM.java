@@ -1,25 +1,19 @@
 package com.apruve.test;
 
-import java.util.Date;
-
 import com.apruve.models.Payment;
+import com.github.javafaker.Faker;
 
 public class PaymentOM {
-
-	public static Payment getMinimalPayment() {
-		Payment payment = new Payment("abc123", 100);
-		
-		return payment;
-	}
+	private static Faker faker = new Faker();
 	
-	public static Payment getPayment() throws Exception {
-		Payment payment = getMinimalPayment();
-		payment.setMerchantNotes("Some notes from the merchant");
-		payment.setApiUrl("http://example.com/foo");
+	public static Payment getPayment() {
+		Payment payment = new Payment();
+		payment.setAmountCents(faker.number().numberBetween(100, 100000));
 		payment.setCurrency("USD");
-		payment.setCreatedAt(new Date());
-		payment.setUpdatedAt(new Date());
-		
+		payment.setPaidOut(false);
+		payment.setRefundedAmountCents(0);
+		payment.setStatus("pending");
+		payment.setLinks(PaymentLinksOM.getPaymentLinks());
 		return payment;
 	}
 }

@@ -1,23 +1,23 @@
 package com.apruve.models;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
-import com.apruve.test.PaymentOM;
+import com.apruve.test.AddressOM;
 
-public class PaymentTest {
+public class AddressTest {
 
 	@Test
 	public void testMarshal() throws Exception {
-		Payment payment = PaymentOM.getPayment();
-		ApruveModelTestHelper.doMarshalTest(payment);
+		Address address = AddressOM.getAddress();
+		ApruveModelTestHelper.doMarshalTest(address);
 	}
 
 	@Test
 	public void testToJson() {
-		Payment obj = PaymentOM.getPayment();
+		Address obj = AddressOM.getAddress();
 		String json = obj.toJson();
 		assertNotNull(json);
 		assertFalse(json.isEmpty());

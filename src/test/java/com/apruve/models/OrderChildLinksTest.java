@@ -5,19 +5,19 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.apruve.test.PaymentOM;
+import com.apruve.test.OrderChildLinksOM;
 
-public class PaymentTest {
+public class OrderChildLinksTest {
 
 	@Test
 	public void testMarshal() throws Exception {
-		Payment payment = PaymentOM.getPayment();
-		ApruveModelTestHelper.doMarshalTest(payment);
+		OrderChildLinks links = OrderChildLinksOM.getOrderChildLinks();
+		ApruveModelTestHelper.doMarshalTest(links);
 	}
 
 	@Test
 	public void testToJson() {
-		Payment obj = PaymentOM.getPayment();
+		OrderChildLinks obj = OrderChildLinksOM.getOrderChildLinks();
 		String json = obj.toJson();
 		assertNotNull(json);
 		assertFalse(json.isEmpty());
